@@ -45,22 +45,31 @@
  *    ellipse, rect
  *    random
  *    width, height
- *    keyCode, UP_ARROW
+ *    keyCode, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW
  *    text, textSize
+ *    collideRectCircle
  */
 
-let backgroundColor, frogX, frogY, score, lives, gameIsOver, car1X, car1Y, car1V;
+let backgroundColor,
+  frogX,
+  frogY,
+  score,
+  lives,
+  gameIsOver,
+  car1X,
+  car1Y,
+  car1V;
 
 function setup() {
   // Canvas & color settings
   createCanvas(500, 500);
   colorMode(HSB, 360, 100, 100);
   backgroundColor = 95;
-  
+
   // Fix this so the frog is in the middle-bottom of screen.
   frogX = width / 2;
   frogY = height - 20;
-  
+
   score = 0;
   lives = 3;
   gameIsOver = false;
@@ -91,14 +100,24 @@ function keyPressed() {
   if (keyCode === DOWN_ARROW) {
     frogY += 10;
   }
-  if (keyCode === )
+  if (keyCode === RIGHT_ARROW) {
+    frogX += 10;
+  }
+  if (keyCode === LEFT_ARROW) {
+    frogX -= 10;
+  }
 }
 
 function moveCars() {
   // Move the car
+  car1X += car1V;
+  // car1X = car1X + car1V;
 
   // Reset if it moves off screen
-
+  // if (car1X > 500) {
+  if (car1X > width) {
+    car1X = 0;
+  }
 }
 
 function drawCars() {
@@ -110,7 +129,13 @@ function drawCars() {
 
 function checkCollisions() {
   // If the frog collides with the car, reset the frog and subtract a life.
-
+  // collideRectCircle(x1, y1, width1, height1, cx, cy, diameter)
+  let hit = collideRectCircle(car1X, car1Y, 40, 30, frogX, frogY, 20);
+  if (hit) {
+    frogX = width / 2;
+    frogY = height - 20;
+    lives--;
+  }
 }
 
 function checkWin() {
@@ -126,5 +151,4 @@ function displayScores() {
   // Display Score
 
   // Display game over message if the game is over
-
 }
