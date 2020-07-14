@@ -3,8 +3,17 @@
  | |  _  | | | |   / _ \   | |     \___ \ 
  | |_| | | |_| |  / ___ \  | |___   ___) |
   \____|  \___/  /_/   \_\ |_____| |____/ 
-                       
-1) 
+
+0) make the frog start at the start
+1) Move the frog in every direction
+2) Move the car
+   - resetting the car to the left
+3) Detect if the car hits the frog
+   - lose a life
+   - move frog back to the start
+4) Detect when the frog gets to the glade
+   - gain a point
+   - move back to the start
 
   ____    _____   ____    _____   _____    ____   _   _ 
  / ___|  |_   _| |  _ \  | ____| |_   _|  / ___| | | | |
@@ -47,8 +56,11 @@ function setup() {
   createCanvas(500, 500);
   colorMode(HSB, 360, 100, 100);
   backgroundColor = 95;
-  frogX = random(width);
-  frogY = random(height);
+  
+  // Fix this so the frog is in the middle-bottom of screen.
+  frogX = width / 2;
+  frogY = height - 20;
+  
   score = 0;
   lives = 3;
   gameIsOver = false;
@@ -76,6 +88,10 @@ function keyPressed() {
   if (keyCode === UP_ARROW) {
     frogY -= 10;
   }
+  if (keyCode === DOWN_ARROW) {
+    frogY += 10;
+  }
+  if (keyCode === )
 }
 
 function moveCars() {
