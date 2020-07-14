@@ -12,7 +12,20 @@
   ___) |   | |   |  _ <  | |___    | |   | |___  |  _  |
  |____/    |_|   |_| \_\ |_____|   |_|    \____| |_| |_|
 
-1) 
+1) Add multiple cars.
+2) Add a certain goal - i.e. score 5 times to end the game.
+3) Make it so that you can only move the frog if the game
+   is not over.
+4) Make the game get more and more challenging as you win
+   more and more times.
+5) Color code your player pieces.
+6) Using some ideas from yesterday’s game, add some
+   collectible power-ups that make you temporarily
+   invincible, faster, smaller, or rainbow-colored.
+7) Add features like a river to the background - make some
+   additional modifications to the gameplay - perhaps
+   falling into the river also sends you back. Add logs
+   that float.
 
 */
 
