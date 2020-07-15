@@ -32,10 +32,14 @@
  *    width, height
  */
 
+let xCan = window.innerWidth-20;
+let yCan = window.innerHeight-20;
 let drop1x, drop1y, drop1d, drop1FallSpeed;
 
+let drops = [];
+
 function setup() {
-  createCanvas(500, 500);
+  createCanvas(xCan, yCan);
   colorMode(HSB, 100);
   // Variables for droplet 1
   drop1x = 200; // or random(width)
