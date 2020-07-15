@@ -32,7 +32,7 @@
  *    width, height
  *    createSlider
  *    strokeWeight, stroke, 
- *    collideLineCircle
+ *    collideLineCircle, collideCircleCircle
  *    loadImage, image
  *    mouseX, mouseY,
  */
@@ -49,8 +49,7 @@ let drops = [];
 let grass = [];
 
 let spdSlider;
-let umbrella, u;
-let wUmb = 250;
+let umbrella, umb;
 
 function preload(){
   umbrella = loadImage("https://cdn.glitch.com/0e35faa4-017d-4478-96ba-d88f9cc931bb%2Fumbrella.png?v=1594841096459");
@@ -65,11 +64,12 @@ function setup() {
   for(let i=0; i<numDrops; i++) drops[i] = new drop(random(minR, maxR));
   for(let i=0; i<xCan/4; i++) grass[i] = new blade(i);
   
-  u.push({
-    x: 
-  });
+  umb = {
+    x: null,
+    y: null,
+    w: 250,
+  };
 }
-
 
 function draw(){
   background(0, 0, 95);
@@ -84,6 +84,7 @@ function draw(){
   for(const d of drops){
     d.show();
     d.fall();
+    d.stooped()
   }
   
   for(const g of grass){
@@ -91,12 +92,12 @@ function draw(){
     g.hit();
   }
   
-  if(xUmb!=null && yUmb!=null) image(umbrella, xUmb, yUmb, wUmb, wUmb);
+  if(umb.x!=null) image(umbrella, umb.x, umb.y, umb.w, umb.w);
 }
 
 function mouseMoved(can){
-  xUmb = mouseX - wUmb/2;
-  yUmb = mouseY - wUmb + 20;
+  umb.x = mouseX - umb.w/2;
+  umb.y = mouseY - umb.w + 20;
 }
   
 class drop{
@@ -117,6 +118,11 @@ class drop{
     this.y += this.speed;
     
     if(this.y > yCan) this.y = -this.r;
+  }
+  
+  stopped(){
+    let touching = collideCircleCircle(this.x, this.y, this.r, umb.x, (umb.y-20)+umb.w/2, umb.w)
+    if(touching) this.y = -this.r;
   }
 }
 
