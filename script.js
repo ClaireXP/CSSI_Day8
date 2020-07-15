@@ -47,10 +47,10 @@ let spdSlider;
 function setup() {
   createCanvas(xCan, yCan);
   colorMode(HSB, 100);
+  spdSlider = createSlider(1, 20, 8);
+  spdSlider.position(10, yCan-10);
   
   for(let i=0; i<numDrops; i++) drops[i] = new drop(random(minR, maxR));
-  
-  spdSlider = createSlider(1, 20, 8);
 }
 
 function draw() {
@@ -58,8 +58,8 @@ function draw() {
   
   if(spdSlider.value() != fallSpeed){
     for(const d of drops){
-      fallSpeed = 
-      d.speed = random(1, spdSlider.value());
+      fallSpeed = spdSlider.value()
+      d.speed = random(1, fallSpeed);
     }
   }
   
@@ -70,6 +70,27 @@ function draw() {
 }
 
 class drop{
+  constructor(r){
+    this.x = random(r, xCan-r);
+    this.y = -r;
+    this.r = r;
+    this.speed = random(1, fallSpeed);
+  }
+  
+  show(){
+    noStroke();
+    fill(60, 80, 80);
+    ellipse(this.x, this.y, this.r);
+  }
+  
+  fall(){
+    this.y += this.speed;
+    
+    if(this.y > yCan) this.y = -this.r;
+  }
+}
+
+class grass{
   constructor(r){
     this.x = random(r, xCan-r);
     this.y = -r;
