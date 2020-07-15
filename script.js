@@ -31,6 +31,7 @@
  *    random
  *    width, height
  *    createSlider
+ *    strokeWeight, stroke, line
  */
 
 let xCan = window.innerWidth-20;
@@ -51,6 +52,7 @@ function setup() {
   spdSlider.position(10, yCan-10);
   
   for(let i=0; i<numDrops; i++) drops[i] = new drop(random(minR, maxR));
+  for(let i=0; i<xCan/2; i++) drops[i] = new drop(random(minR, maxR));
 }
 
 function draw() {
@@ -91,21 +93,21 @@ class drop{
 }
 
 class grass{
-  constructor(r){
-    this.x = random(r, xCan-r);
-    this.y = -r;
-    this.r = r;
+  constructor(){
+    this.x = random(0, xCan);
+    this.y = yCan;
+    this.y1 = yCan - random(1, 15);
     this.speed = random(1, fallSpeed);
   }
   
   show(){
-    noStroke();
-    fill(60, 80, 80);
-    ellipse(this.x, this.y, this.r);
+    stroke(120, 100, 50);
+    strokeWeight(2);
+    line(this.x, this.y, this.x, this.y1);
   }
   
-  fall(){
-    this.y += this.speed;
+  grow(){
+    this.y1 -= this.speed;
     
     if(this.y > yCan) this.y = -this.r;
   }
