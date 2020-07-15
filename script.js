@@ -56,6 +56,13 @@ function setup() {
 function draw() {
   background(0, 0, 95);
   
+  if(spdSlider.value() != fallSpeed){
+    for(const d of drops){
+      fallSpeed = 
+      d.speed = random(1, spdSlider.value());
+    }
+  }
+  
   for(const d of drops){
     d.show();
     d.fall();
