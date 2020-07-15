@@ -34,7 +34,7 @@
  *    strokeWeight, stroke, 
  *    collideLineCircle, collideCircleCircle
  *    loadImage, image
- *    mouseX, mouseY,
+ *    mouseX, mouseY, cursor, noCursor, ARROW
  */
 
 let can;
@@ -50,11 +50,12 @@ let grass = [];
 
 let spdSlider, umbSlider;
 let umbrella, umb;
-let rain;
+let rain, raindrop;
 
 function preload(){
   umbrella = loadImage("https://cdn.glitch.com/0e35faa4-017d-4478-96ba-d88f9cc931bb%2Fumbrella.png?v=1594841096459");
   rain = loadImage("https://cdn.glitch.com/0e35faa4-017d-4478-96ba-d88f9cc931bb%2Frain.png?v=1594843871869");
+  raindrop = loadImage("https://cdn.glitch.com/0e35faa4-017d-4478-96ba-d88f9cc931bb%2FrainDrop.png?v=1594844944177");
 }
 
 function setup() {
@@ -110,6 +111,9 @@ function mouseMoved(can){
   if(mouseY - umb.w*.8 > 30){
     umb.y = mouseY - umb.w + umb.w*.1;
   }
+  
+  if(mouseY< umb.w*.8 + 30) cursor(ARROW);
+  else noCursor();
 }
   
 function drawIcon(img, x){
