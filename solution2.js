@@ -35,6 +35,35 @@ function draw() {
   drop4.show();
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class RainDrop {
   constructor(d) {
     this.x = random(width);
