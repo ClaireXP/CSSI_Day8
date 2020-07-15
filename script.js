@@ -48,7 +48,7 @@ let minR = 2.5;
 let drops = [];
 let grass = [];
 
-let spdSlider;
+let spdSlider, umbSlider;
 let umbrella, umb;
 
 function preload(){
@@ -59,7 +59,9 @@ function setup() {
   can = createCanvas(xCan, yCan);
   colorMode(HSB, 100);
   spdSlider = createSlider(1, 20, 8);
-  spdSlider.position(10, yCan-10);
+  spdSlider.position(30, 10);
+  umbSlider = createSlider(50, 500, 250, 25);
+  umbSlider.position(200, 10);
   
   for(let i=0; i<numDrops; i++) drops[i] = new drop(random(minR, maxR));
   for(let i=0; i<xCan/4; i++) grass[i] = new blade(i);
@@ -81,10 +83,12 @@ function draw(){
     }
   }
   
+  if(umbSlider.value() != umb.w) umb.w = umbSlider.value();
+  
   for(const d of drops){
     d.show();
     d.fall();
-    d.stooped()
+    d.stop();
   }
   
   for(const g of grass){
@@ -120,9 +124,11 @@ class drop{
     if(this.y > yCan) this.y = -this.r;
   }
   
-  stopped(){
-    let touching = collideCircleCircle(this.x, this.y, this.r, umb.x, (umb.y-20)+umb.w/2, umb.w)
-    if(touching) this.y = -this.r;
+  stop(){
+    if(umb.x!=null && this.y<(umb.y-20)+umb.w/2){
+      let touching = collideCircleCircle(this.x, this.y, this.r, mouseX, (umb.y-20)+umb.w/2, umb.w*.8)
+      if(touching) this.y = -this.r;
+    }
   }
 }
 
