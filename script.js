@@ -31,8 +31,9 @@
  *    random
  *    width, height
  *    createSlider
- *    strokeWeight, stroke, line
+ *    strokeWeight, stroke, 
  */
+ *    collideLineCircle
 
 let xCan = window.innerWidth-20;
 let yCan = window.innerHeight-20;
@@ -112,3 +113,7 @@ class grass{
     if(this.y > yCan) this.y = -this.r;
   }
 }
+  
+  cohit(d){
+    collideLineCircle(this.x, this.y, this.x, this.y1, d.x, d.y, d.r)
+  }
