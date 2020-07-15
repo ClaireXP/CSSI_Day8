@@ -34,9 +34,8 @@
 
 let xCan = window.innerWidth-20;
 let yCan = window.innerHeight-20;
-let drop1x, drop1y, drop1d, drop1FallSpeed;
 
-let drops = [];
+let drop1, drop2, drop3, drop4;
 let maxFallSpeed = 8;
 let numDrops = 25;
 
@@ -45,14 +44,31 @@ function setup() {
   colorMode(HSB, 100);
   
   
+  
+  drop1 = new drop(random(50));
+  drop2 = new drop(random(50));
+  drop3 = new drop(random(50));
+  drop4 = new drop(random(50));
 }
 
 function draw() {
   background(0, 0, 95);
+  
+  drop1.show();
+  drop1.fall();
+  
+  drop2.show();
+  drop2.fall();
+  
+  drop3.show();
+  drop3.fall();
+  
+  drop4.show();
+  drop4.fall();
 }
 
 class drop{
-  constructor(x, y, r){
+  constructor(r){
     this.x = random(r, xCan-r);
     this.y = -r;
     this.r = r;
@@ -63,5 +79,9 @@ class drop{
     noStroke();
     fill(60, 80, 80);
     ellipse(this.x, this.y, this.r);
+  }
+  
+  fall(){
+    this.y += this.speed;
   }
 }
