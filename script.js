@@ -33,9 +33,11 @@
  *    createSlider
  *    strokeWeight, stroke, 
  *    collideLineCircle
+ *    loadImage, image
+ *    mouseX, mouseY,
  */
 
-
+let can;
 let xCan = window.innerWidth-20;
 let yCan = window.innerHeight-20;
 
@@ -47,15 +49,25 @@ let drops = [];
 let grass = [];
 
 let spdSlider;
+let umbrella, u;
+let wUmb = 250;
+
+function preload(){
+  umbrella = loadImage("https://cdn.glitch.com/0e35faa4-017d-4478-96ba-d88f9cc931bb%2Fumbrella.png?v=1594841096459");
+}
 
 function setup() {
-  createCanvas(xCan, yCan);
+  can = createCanvas(xCan, yCan);
   colorMode(HSB, 100);
   spdSlider = createSlider(1, 20, 8);
   spdSlider.position(10, yCan-10);
   
   for(let i=0; i<numDrops; i++) drops[i] = new drop(random(minR, maxR));
   for(let i=0; i<xCan/4; i++) grass[i] = new blade(i);
+  
+  u.push({
+    x: 
+  });
 }
 
 
@@ -78,12 +90,18 @@ function draw(){
     g.show();
     g.hit();
   }
-}
   
+  if(xUmb!=null && yUmb!=null) image(umbrella, xUmb, yUmb, wUmb, wUmb);
+}
+
+function mouseMoved(can){
+  xUmb = mouseX - wUmb/2;
+  yUmb = mouseY - wUmb + 20;
+}
   
 class drop{
   constructor(r){
-    this.x = random(, xCan-r);
+    this.x = random(xCan);
     this.y = -r;
     this.r = r;
     this.speed = random(1, fallSpeed);
