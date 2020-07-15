@@ -40,7 +40,7 @@ let xCan = window.innerWidth-20;
 let yCan = window.innerHeight-20;
 
 let fallSpeed = 8;
-let numDrops = yCan/5;
+let numDrops = yCan*.75;
 let maxR = 15;
 let minR = 2.5;
 let drops = [];
@@ -55,7 +55,7 @@ function setup() {
   spdSlider.position(10, yCan-10);
   
   for(let i=0; i<numDrops; i++) drops[i] = new drop(random(minR, maxR));
-  for(let i=0; i<xCan/15; i++) grass[i] = new blade();
+  for(let i=0; i<xCan/4; i++) grass[i] = new blade(i);
 }
 
 
@@ -83,7 +83,7 @@ function draw(){
   
 class drop{
   constructor(r){
-    this.x = random(r, xCan-r);
+    this.x = random(, xCan-r);
     this.y = -r;
     this.r = r;
     this.speed = random(1, fallSpeed);
@@ -103,11 +103,12 @@ class drop{
 }
 
 class blade{
-  constructor(){
-    this.x = random(0, xCan);
+  constructor(i){
+    this.x = i*4;
     this.y = yCan;
     this.y1 = yCan - random(1, 15);
-    this.speed = random(1, fallSpeed);
+    this.speed = random(3, 10);
+    this.max = random(3*yCan/4-20, 3*yCan/4+20)
   }
   
   show(){
@@ -118,7 +119,7 @@ class blade{
   
   hit(){
     for(const d of drops){
-      if(d.y >= this.y1){
+      if(d.y >= this.y1 && this.y1 > this.max){
         let touching = collideLineCircle(this.x, this.y, this.x, this.y1, d.x, d.y, d.r)
         if(touching){
           this.y1 -= this.speed;
