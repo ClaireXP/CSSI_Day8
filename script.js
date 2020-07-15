@@ -30,25 +30,27 @@
  *    ellipse
  *    random
  *    width, height
+ *    createSlider
  */
 
 let xCan = window.innerWidth-20;
 let yCan = window.innerHeight-20;
 
-let maxFallSpeed = 8;
+let fallSpeed = 8;
 let numDrops = yCan/3;
-let maxR = 20;
-let minR = 5;
-
+let maxR = 15;
+let minR = 2.5;
 let drops = [];
+
+let spdSlider;
 
 function setup() {
   createCanvas(xCan, yCan);
   colorMode(HSB, 100);
   
-  for(let i=0; i<numDrops; i++){
-    drops[i] = new drop(random(minR, maxR));
-  }
+  for(let i=0; i<numDrops; i++) drops[i] = new drop(random(minR, maxR));
+  
+  spdSlider = createSlider(1, 20, 8);
 }
 
 function draw() {
@@ -65,7 +67,7 @@ class drop{
     this.x = random(r, xCan-r);
     this.y = -r;
     this.r = r;
-    this.speed = random(maxFallSpeed);
+    this.speed = random(1, fallSpeed);
   }
   
   show(){
