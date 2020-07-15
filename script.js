@@ -54,7 +54,7 @@ let rain;
 
 function preload(){
   umbrella = loadImage("https://cdn.glitch.com/0e35faa4-017d-4478-96ba-d88f9cc931bb%2Fumbrella.png?v=1594841096459");
-  rain = loadImage();
+  rain = loadImage("https://cdn.glitch.com/0e35faa4-017d-4478-96ba-d88f9cc931bb%2Frain.png?v=1594843871869");
 }
 
 function setup() {
@@ -102,12 +102,14 @@ function draw(){
   }
   
   drawIcon(umbrella, 200);
-  drawIcon(umbrella, 2);
+  drawIcon(rain, 2);
 }
 
 function mouseMoved(can){
   umb.x = mouseX - umb.w/2;
-  umb.y = mouseY - umb.w + 20;
+  if(mouseY - umb.w*.8 > 30){
+    umb.y = mouseY - umb.w + umb.w*.1;
+  }
 }
   
 function drawIcon(img, x){
