@@ -27,7 +27,7 @@
 /* global
  *    createCanvas, background
  *    colorMode, HSB, fill, noStroke
- *    ellipse, line
+ *    ellipse, line, rect
  *    random
  *    width, height
  *    createSlider
@@ -50,18 +50,22 @@ let grass = [];
 
 let spdSlider, umbSlider;
 let umbrella, umb;
+let rain;
 
 function preload(){
   umbrella = loadImage("https://cdn.glitch.com/0e35faa4-017d-4478-96ba-d88f9cc931bb%2Fumbrella.png?v=1594841096459");
+  rain = loadImage();
 }
 
 function setup() {
   can = createCanvas(xCan, yCan);
   colorMode(HSB, 100);
-  spdSlider = createSlider(1, 20, 8);
-  spdSlider.position(30, 10);
+  
   umbSlider = createSlider(50, 500, 250, 25);
-  umbSlider.position(200, 10);
+  umbSlider.position(245, 15);
+  
+  spdSlider = createSlider(1, 20, 8);
+  spdSlider.position(45, 15);
   
   for(let i=0; i<numDrops; i++) drops[i] = new drop(random(minR, maxR));
   for(let i=0; i<xCan/4; i++) grass[i] = new blade(i);
@@ -76,15 +80,6 @@ function setup() {
 function draw(){
   background(0, 0, 95);
   
-  if(spdSlider.value() != fallSpeed){
-    for(const d of drops){
-      fallSpeed = spdSlider.value()
-      d.speed = random(1, fallSpeed);
-    }
-  }
-  
-  if(umbSlider.value() != umb.w) umb.w = umbSlider.value();
-  
   for(const d of drops){
     d.show();
     d.fall();
@@ -97,6 +92,17 @@ function draw(){
   }
   
   if(umb.x!=null) image(umbrella, umb.x, umb.y, umb.w, umb.w);
+  
+  if(umbSlider.value() != umb.w) umb.w = umbSlider.value();
+  if(spdSlider.value() != fallSpeed){
+    for(const d of drops){
+      fallSpeed = spdSlider.value()
+      d.speed = random(1, fallSpeed);
+    }
+  }
+  
+  drawIcon(umbrella, 200);
+  drawIcon(umbrella, 2);
 }
 
 function mouseMoved(can){
@@ -104,6 +110,14 @@ function mouseMoved(can){
   umb.y = mouseY - umb.w + 20;
 }
   
+function drawIcon(img, x){
+  stroke(0);
+  strokeWeight(1);
+  fill(75);
+  rect(x, 2, 30, 30);
+  image(img, x, 2, 30, 30);
+}
+
 class drop{
   constructor(r){
     this.x = random(xCan);
