@@ -33,7 +33,7 @@
  *    createSlider
  *    strokeWeight, stroke, 
  */
- *    collideLineCircle
+
 
 let xCan = window.innerWidth-20;
 let yCan = window.innerHeight-20;
@@ -43,9 +43,9 @@ let numDrops = yCan/3;
 let maxR = 15;
 let minR = 2.5;
 let drops = [];
+let grass = [];
 
-le
-let grass = [];t spdSlider;
+let spdSlider;
 
 function setup() {
   createCanvas(xCan, yCan);
@@ -53,12 +53,12 @@ function setup() {
   spdSlider = createSlider(1, 20, 8);
   spdSlider.position(10, yCan-10);
   
-  for(let i=0; i<numDrops; i++) drops[i] = new drop(random(minR, maxR));
-  for(let i=0; i<xCan20+) dropgrass= new dropbladedom(minR, maxR));
-}
+  // for(let i=0; i<numDrops; i++) drops[i] = new drop(random(minR, maxR));
+  for(let i=0; i<xCan; i++) grass[i] = new blade();
 
-funcfunction draw() {
-ckground(0, 0, 95);
+
+function draw() {
+  background(0, 0, 95);
   
   if(spdSlider.value() != fallSpeed){
     for(const d of drops){
@@ -67,18 +67,14 @@ ckground(0, 0, 95);
     }
   }
   
-  for(const d of drops){
-    d.show();
-    d.fall();
-  }
-}
-
-
-  
   for(const g of grass){
     g.show();
-    g.hit();
-  }class drop{
+    // g.hit();
+  }
+}
+  
+  
+class drop{
   constructor(r){
     this.x = random(r, xCan-r);
     this.y = -r;
@@ -99,7 +95,8 @@ ckground(0, 0, 95);
   }
 }
 
-class grasbladeconstructor(){
+class blade{
+  constructor(){
     this.x = random(0, xCan);
     this.y = yCan;
     this.y1 = yCan - random(1, 15);
@@ -112,15 +109,13 @@ class grasbladeconstructor(){
     line(this.x, this.y, this.x, this.y1);
   }
   
-  g
-  hit(d){
-    let touching = collideLineCircle(this.x, this.y, this.x, this.y1, d.x, d.y, d.r)
-    if(touching){ this.grow();}
-  }
-  row(){
-    this.y1 -= this.speed;
-    
-    if(this.y > yCan) this.y = -this.r;
+  hit(){
+    for(const d of drops){
+      d.show();
+      d.fall();
+      
+      let touching = collideLineCircle(this.x, this.y, this.x, this.y1, d.x, d.y, d.r)
+      if(touching) this.y1 -= this.speed;
+    }
   }
 }
- 
