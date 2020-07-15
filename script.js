@@ -35,36 +35,29 @@
 let xCan = window.innerWidth-20;
 let yCan = window.innerHeight-20;
 
-let drop1, drop2, drop3, drop4;
 let maxFallSpeed = 8;
-let numDrops = 25;
+let numDrops = yCan/3;
+let maxR = 20;
+let minR = 5;
+
+let drops = [];
 
 function setup() {
   createCanvas(xCan, yCan);
   colorMode(HSB, 100);
   
-  
-  
-  drop1 = new drop(random(50));
-  drop2 = new drop(random(50));
-  drop3 = new drop(random(50));
-  drop4 = new drop(random(50));
+  for(let i=0; i<numDrops; i++){
+    drops[i] = new drop(random(minR, maxR));
+  }
 }
 
 function draw() {
   background(0, 0, 95);
   
-  drop1.show();
-  drop1.fall();
-  
-  drop2.show();
-  drop2.fall();
-  
-  drop3.show();
-  drop3.fall();
-  
-  drop4.show();
-  drop4.fall();
+  for(const d of drops){
+    d.show();
+    d.fall();
+  }
 }
 
 class drop{
@@ -83,5 +76,7 @@ class drop{
   
   fall(){
     this.y += this.speed;
+    
+    if(this.y > yCan) this.y = -this.r;
   }
 }
